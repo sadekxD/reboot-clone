@@ -46,21 +46,22 @@ export function Card2({
 		}, interval);
 	};
 
-	const _focus = (id: number) => {
-		setFocusedItem(id);
-		videoRef.current?.play();
-	};
+	// const _focus = (id: number) => {
+	// 	setFocusedItem(id);
+	// };
 
-	const _blur = () => {
-		setFocusedItem(null);
-		videoRef.current?.pause();
-	};
+	// const _blur = () => {
+	// 	setFocusedItem(null);
+	// 	videoRef.current?.pause();
+	// };
 
 	useEffect(() => {
 		if (inView) {
+			videoRef.current?.play();
 			increaseFractionally();
 		} else {
 			setValue(0);
+			videoRef.current?.pause();
 		}
 	}, [inView]);
 
@@ -74,8 +75,6 @@ export function Card2({
 
 				filter: `blur(${inView ? "0px" : value + "px"})`,
 			}}
-			onMouseOver={() => _focus(id)}
-			onMouseOut={_blur}
 		>
 			<Link href={href}>
 				<video

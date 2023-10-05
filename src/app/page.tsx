@@ -7,7 +7,7 @@ export default function Home() {
 			<div className="top-0 sticky px-5 md:px-10 lg:px-20 pb-24 scrollbar-hide">
 				<MainNav />
 				<section>
-					<h1 className="text-2xl md:text-[32px] leading-[48px] font-bold mt-32">
+					<h1 className="text-2xl md:text-[32px] md:leading-[48px] font-bold mt-32">
 						an independent product team
 					</h1>
 					<div className="space-y-1 mt-9">
