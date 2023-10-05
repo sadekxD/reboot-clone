@@ -1,20 +1,23 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Card } from "@/components/card";
+import { Card1 } from "@/components/cards/card1";
 import { projects } from "@/data/mockData";
+import { Card2 } from "./cards/card2";
 
 export function Portfolio() {
-	const triggerRef = useRef<HTMLDivElement>(null);
-	const scrollRef = useRef<HTMLDivElement>(null);
+	const scrollRef = useRef<HTMLDivElement | null>(null);
+	const [focusedItem, setFocusedItem] = useState<number | null>(null);
 
 	gsap.registerPlugin(ScrollTrigger);
 
 	useEffect(() => {
-		let tween = gsap.to(scrollRef.current, {
-			x: -scrollRef.current?.offsetWidth + 538,
+		const target = scrollRef.current;
+		const scrollWidth = target?.offsetWidth as number;
+		let tween = gsap.to(target, {
+			x: -scrollWidth + 538,
 			scrollTrigger: {
 				trigger: "main",
 				scrub: 0.5,
@@ -29,10 +32,25 @@ export function Portfolio() {
 	}, []);
 
 	return (
-		<div className="cards-wrapper mt-10">
-			<div ref={scrollRef} className="cards flex w-fit gap-10">
+		<div className="mt-10">
+			<div ref={scrollRef} className="w-fit gap-10 hidden md:flex">
 				{projects.map((project, _) => (
-					<Card key={_} {...project} />
+					<Card1
+						key={_}
+						focusedItem={focusedItem}
+						setFocusedItem={setFocusedItem}
+						{...project}
+					/>
+				))}
+			</div>
+			<div className="w-fit gap-6 flex flex-col md:hidden">
+				{projects.map((project, _) => (
+					<Card2
+						key={_}
+						focusedItem={focusedItem}
+						setFocusedItem={setFocusedItem}
+						{...project}
+					/>
 				))}
 			</div>
 		</div>
